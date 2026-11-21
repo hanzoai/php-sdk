@@ -1,5 +1,7 @@
 # hanzoai/hanzoai
 
+[![Open in Hanzo](https://hanzo.app/badges/open-in-hanzo.svg)](https://hanzo.app/dev/open?repo=github.com/hanzoai/php-sdk&ref=main&action=open) [![Edit with Hanzo](https://hanzo.app/badges/edit-with-hanzo.svg)](https://hanzo.app/dev/open?repo=github.com/hanzoai/php-sdk&ref=main&action=edit) [![Deploy with Hanzo](https://hanzo.app/badges/deploy-with-hanzo.svg)](https://hanzo.app/dev/open?repo=github.com/hanzoai/php-sdk&ref=main&action=deploy)
+
 The PHP client for the Hanzo API: every operation the document declares,
 generated from the API's own OpenAPI document.
 
